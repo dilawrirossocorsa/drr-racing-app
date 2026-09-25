@@ -57,3 +57,13 @@ tr.nostro td { background: #eef3fb; font-weight: 700; }
 .board-grande .board-dati { display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
 .board-grande .board-nome { font-size: 26px; }
 @media (max-width: 560px) { .board-grande { grid-template-columns: 1fr; } }
+
+/* scheda Ferrari */
+.copertina { display: block; margin: -16px -16px 14px; }
+.copertina img { width: 100%; max-height: 420px; object-fit: cover; display: block; }
+.stat { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.stat div { background: var(--fondo); border-radius: 10px; padding: 8px 10px; }
+.stat b { display: block; font-size: 20px; font-weight: 900; color: var(--blu); font-variant-numeric: tabular-nums; }
+.stat small { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; color: var(--tenue); font-weight: 700; }
+.foto-grande { width: 100%; border-radius: 14px; display: block; margin-bottom: 14px; }
+.fonte { font-size: 11px; color: var(--tenue); text-align: center; margin: 4px 0 14px; }

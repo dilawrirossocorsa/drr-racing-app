@@ -14,6 +14,18 @@ export type Pilota = {
   id: string; nome: string; numero: string | null; categoria: string | null; nazione: string | null; foto: string | null;
   bio_it: string | null; bio_en: string | null; instagram: string | null; sito: string | null; punti_stagione: number;
   classifica: { categoria: string; posizione: number; punti: number | null }[]; gare: number;
+  // scheda ufficiale letta ogni giorno da ferrari.com (Paddock, lib/ferrari-drivers.ts)
+  ferrari?: Ferrari | null;
+};
+export type Ferrari = {
+  slug: string; url: string; nome: string; cognome: string; nazione: string | null; numero: string | null; team: string | null;
+  categoria: string | null; categoria_nome: string | null; posizione: number | null; punti: number | null; auto: string | null;
+  debutto: string | null; stagioni: string | null; titoli: number; titoli_dettaglio: { anno: string; campionato: string; auto: string }[];
+  finali_mondiali: number; media_punti: string | null; punti_carriera: number | null; gare: number | null; podi: number | null;
+  top10: number | null; vittorie: number | null; pole: number | null; giri_veloci: number | null;
+  miglior_stagione: string | null; miglior_stagione_punti: string | null; primo_top10: string | null;
+  anno: string | null; gare_stagione: { data: string; circuito: string; gara: string; pos: string; punti: number | null; pole: boolean; giro_veloce: boolean }[];
+  foto: { ritratto: string | null; ritratto_grande: string | null; copertina: string | null; copertina_mob: string | null; auto: string | null };
 };
 export type Classifica = { categoria: string; righe: { position: number; driver_name: string; points: number | null; is_drr_driver: boolean }[] };
 export type Foto = { id: string; evento: string; url: string; quando: string };
