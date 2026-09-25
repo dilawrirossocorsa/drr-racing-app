@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { dati, CATEGORIE, SESSIONI } from "@/lib/dati";
+import { dati, CATEGORIE, SESSIONI, bandiera, nomeCognome } from "@/lib/dati";
 import { lingua, tt } from "@/lib/lingua";
 
 export const revalidate = 120;
@@ -19,19 +19,31 @@ export default async function Pilota({ params }: { params: { id: string } }) {
   const bio = l === "en" ? p.bio_en || p.bio_it : p.bio_it || p.bio_en;
   return (
     <>
-      <div className="card pilota" style={{ display: "grid", gap: 16, gridTemplateColumns: "minmax(0,220px) 1fr" }}>
-        {p.foto ? <img src={p.foto} alt={p.nome} /> : <div style={{ aspectRatio: "4/5", background: "#dde2ea", borderRadius: 10 }} />}
-        <div>
-          <h1 style={{ marginTop: 0 }}>{p.numero ? <span className="num">{p.numero}</span> : null} {p.nome}</h1>
-          <div className="sotto">{p.categoria ? CATEGORIE[p.categoria]?.[i] ?? p.categoria : ""}{p.nazione ? ` · ${p.nazione.toUpperCase()}` : ""}</div>
-          {p.classifica.map((c) => <p key={c.categoria}><b>P{c.posizione}</b> {CATEGORIE[c.categoria]?.[i] ?? c.categoria} · {c.punti ?? 0} pt</p>)}
-          {bio ? <p>{bio}</p> : null}
+      <div className="board board-grande">
+        <div className="board-foto">
+          {p.foto ? <img src={p.foto} alt={p.nome} /> : <div className="board-vuota">{p.numero ?? ""}</div>}
+          {p.numero ? <span className="board-num">{p.numero}</span> : null}
+        </div>
+        <div className="board-dati">
+          <div className="board-nome">{nomeCognome(p.nome)[0]} <b>{nomeCognome(p.nome)[1]}</b> <span className="board-flag">{bandiera(p.nazione)}</span></div>
+          <div className="board-cat">{p.categoria ? CATEGORIE[p.categoria]?.[i] ?? p.categoria : "Ferrari Challenge"} · Ferrari 296 Challenge</div>
+          <div className="board-riga">
+            <span><small>{tt(l, "Pos.", "Pos.")}</small>{p.classifica[0] ? `P${p.classifica[0].posizione}` : "—"}</span>
+            <span><small>{tt(l, "Punti", "Points")}</small>{p.classifica[0]?.punti ?? p.punti_stagione ?? 0}</span>
+            <span><small>{tt(l, "Gare", "Races")}</small>{p.gare}</span>
+          </div>
+          {p.classifica.length > 1 ? p.classifica.slice(1).map((c) => <div key={c.categoria} className="board-cat">P{c.posizione} {CATEGORIE[c.categoria]?.[i] ?? c.categoria} · {c.punti ?? 0} pt</div>) : null}
+        </div>
+      </div>
+      {bio || p.instagram || p.sito ? (
+        <div className="card">
+          {bio ? <p style={{ marginTop: 0 }}>{bio}</p> : null}
           <div className="bottoni">
             {p.instagram ? <a className="btn" href={p.instagram.startsWith("http") ? p.instagram : `https://instagram.com/${p.instagram.replace(/^@/, "")}`} target="_blank" rel="noopener">Instagram</a> : null}
             {p.sito ? <a className="btn" href={p.sito.startsWith("http") ? p.sito : `https://${p.sito}`} target="_blank" rel="noopener">{tt(l, "Sito", "Website")}</a> : null}
           </div>
         </div>
-      </div>
+      ) : null}
       <div className="card">
         <h2>{tt(l, "Risultati della stagione", "Season results")}</h2>
         {!gare.length ? <p className="vuoto">{tt(l, "Ancora nessun risultato.", "No results yet.")}</p> : (

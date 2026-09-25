@@ -19,7 +19,8 @@ export type Classifica = { categoria: string; righe: { position: number; driver_
 export type Foto = { id: string; evento: string; url: string; quando: string };
 export type Dati = {
   aggiornato: string;
-  link: { racing_site_url?: string | null; racing_instagram_url?: string | null; racing_facebook_url?: string | null; racing_youtube_url?: string | null; racing_intro_it?: string | null; racing_intro_en?: string | null };
+  // sito e social: la lista e' in Paddock, qui arrivano solo quelli spuntati "visibile in DRR Racing"
+  link: { social?: { nome: string; tipo: string; url: string }[]; racing_intro_it?: string | null; racing_intro_en?: string | null };
   eventi: Evento[]; classifica: Classifica[]; piloti: Pilota[]; foto: Foto[];
 };
 
@@ -55,4 +56,17 @@ export function prossimo(eventi: Evento[]): Evento | null {
 export function ultimoConRisultati(eventi: Evento[]): Evento | null {
   const con = eventi.filter((e) => e.risultati.length).sort((a, b) => (b.inizio || "").localeCompare(a.inizio || ""));
   return con[0] ?? null;
+}
+
+// Bandiera dalla sigla della nazione (it, us, ca...).
+export function bandiera(n: string | null | undefined): string {
+  const c = (n || "").trim().toUpperCase();
+  if (!/^[A-Z]{2}$/.test(c)) return "";
+  return String.fromCodePoint(...[...c].map((x) => 0x1f1e6 + x.charCodeAt(0) - 65));
+}
+// "Michael Owens" -> ["Michael", "OWENS"] per le schede in stile tabellone
+export function nomeCognome(n: string): [string, string] {
+  const p = n.trim().split(/\s+/);
+  if (p.length < 2) return ["", n.toUpperCase()];
+  return [p.slice(0, -1).join(" "), p[p.length - 1].toUpperCase()];
 }

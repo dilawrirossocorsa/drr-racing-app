@@ -38,3 +38,22 @@ tr.nostro td { background: #eef3fb; font-weight: 700; }
 .btn.rosso { background: var(--rosso); }
 .piede { text-align: center; color: var(--tenue); font-size: 12px; padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); }
 .vuoto { color: var(--tenue); padding: 20px 0; }
+
+/* schede piloti in stile tabellone (virtual board) */
+.intro p { margin: 0 0 10px; line-height: 1.5; } .intro p:last-child { margin-bottom: 0; }
+.board { display: block; background: linear-gradient(160deg, #0b2a55 0%, #071a36 100%); color: #fff; border-radius: 14px; overflow: hidden; margin-bottom: 14px; border-bottom: 5px solid var(--rosso); }
+.board-foto { position: relative; aspect-ratio: 4/5; background: #0e3570; }
+.board-foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.board-vuota { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 96px; font-weight: 900; font-style: italic; color: rgba(255,255,255,.12); }
+.board-num { position: absolute; left: 0; bottom: 0; background: var(--rosso); color: #fff; font-weight: 900; font-style: italic; font-size: 30px; padding: 4px 14px 2px 12px; clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%); }
+.board-dati { padding: 12px 14px 14px; }
+.board-nome { font-size: 17px; line-height: 1.2; } .board-nome b { font-weight: 900; letter-spacing: .02em; }
+.board-flag { font-size: 18px; }
+.board-cat { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: #aeb9cc; margin-top: 4px; }
+.board-riga { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; border-top: 1px solid rgba(255,255,255,.15); padding-top: 10px; }
+.board-riga span { font-weight: 900; font-size: 20px; font-variant-numeric: tabular-nums; }
+.board-riga small { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #aeb9cc; }
+.board-grande { display: grid; grid-template-columns: minmax(0, 260px) 1fr; }
+.board-grande .board-dati { display: flex; flex-direction: column; justify-content: flex-end; padding: 18px; }
+.board-grande .board-nome { font-size: 26px; }
+@media (max-width: 560px) { .board-grande { grid-template-columns: 1fr; } }
