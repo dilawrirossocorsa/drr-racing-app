@@ -4,7 +4,7 @@ import Galleria from "@/components/Galleria";
 
 // Foto: solo quelle della galleria del sito del team, divise per evento
 // come sul sito, aggiornate da sole ogni ora (lib/galleria.ts).
-export const revalidate = 600;
+export const revalidate = 120;
 
 export default async function FotoPag() {
   const l = lingua();
