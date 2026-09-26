@@ -159,3 +159,23 @@ a.hero { display: block; }
 .ok { color: #1a7f37; font-size: 13px; }
 button.link { background: none; border: 0; padding: 0; color: var(--rosso); font-size: 13px; cursor: pointer; text-decoration: underline; align-self: flex-start; }
 .testa .account { font-size: 13px; font-weight: 700; margin-left: auto; margin-right: 10px; }
+
+/* Tema serale blu (Billy, 26 settembre 2026): come DRR Paddock, di giorno
+   bianco, la sera (tema scuro di iPhone o Mac) fondo blu DRR. */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #14294a; --carta: #1c3763; --carta2: #244477; --testo: #eaf0fa; --tenue: #a9bcd8; --bordo: #3a619e;
+    --nero: #0e1d36;
+    color-scheme: dark;
+  }
+  .logo { background: #fff; border-radius: 8px; padding: 4px 8px; }
+  .lingua button { background: var(--carta); }
+  td, th { border-top-color: var(--bordo); }
+  tr.nostro td { background: #45222b; }
+  .social a, .altre { background: var(--carta); }
+  .piede { border-top-color: var(--bordo); }
+  .foto-btn { background: var(--carta2); }
+  .ok { color: #58cf94; }
+  .accesso-form input { background: var(--fondo); color: var(--testo); }
+  .app-bg-stripe img { opacity: 0.22; }
+}

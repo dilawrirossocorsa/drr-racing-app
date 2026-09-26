@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: "Dilawri Rossocorsa Racing — calendario, orari, risultati, piloti e foto.",
   icons: { icon: "/icon.png", apple: "/icon.png" },
 };
-export const viewport: Viewport = { themeColor: "#ffffff", width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#14294a" }, { color: "#ffffff" }], width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const l = lingua();
