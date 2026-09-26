@@ -3,13 +3,17 @@ import { dati, prossimo, ultimoConRisultati, CATEGORIE, bandiera, nomeCognome } 
 import { lingua, tt } from "@/lib/lingua";
 import Countdown from "@/components/Countdown";
 import Risultati from "@/components/Risultati";
+import Galleria from "@/components/Galleria";
+import { galleria } from "@/lib/galleria";
 
 export const revalidate = 120;
 
 export default async function Home() {
   const l = lingua();
   const i = l === "en" ? 1 : 0;
-  const d = await dati();
+  const [d, album] = await Promise.all([dati(), galleria()]);
+  // l'album piu' recente del sito (il primo, come in galleria), escluso "Highlights" se ce n'e' uno di un evento
+  const ultimoAlbum = album.find((a) => !/highlight/i.test(a.titolo)) ?? album[0] ?? null;
   const ev = prossimo(d.eventi);
   const prossimaSess = ev?.sessioni.find((s) => new Date(s.end_at).getTime() > Date.now()) ?? null;
   const ultimo = ultimoConRisultati(d.eventi);
@@ -68,10 +72,10 @@ export default async function Home() {
         </>
       ) : null}
 
-      {d.foto.length ? (
+      {ultimoAlbum ? (
         <>
-          <div className="sezione"><h2>{tt(l, "Foto", "Photos")}</h2><Link href="/foto">{tt(l, "Tutte", "All")} →</Link></div>
-          <div className="foto">{d.foto.slice(0, 6).map((f) => <a key={f.id} href={f.url} target="_blank" rel="noopener"><img src={f.url} alt="" loading="lazy" /></a>)}</div>
+          <div className="sezione"><h2>{tt(l, "Foto", "Photos")} <span className="sotto">· {ultimoAlbum.titolo}</span></h2><Link href="/foto">{tt(l, "Tutte", "All")} →</Link></div>
+          <Galleria foto={ultimoAlbum.foto} max={6} />
         </>
       ) : null}
 

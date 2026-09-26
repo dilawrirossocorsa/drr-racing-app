@@ -1,24 +1,25 @@
-import { dati } from "@/lib/dati";
+import { galleria, GALLERIA_URL } from "@/lib/galleria";
 import { lingua, tt } from "@/lib/lingua";
+import Galleria from "@/components/Galleria";
 
-export const revalidate = 120;
+// Foto: solo quelle della galleria del sito del team, divise per evento
+// come sul sito, aggiornate da sole ogni ora (lib/galleria.ts).
+export const revalidate = 3600;
 
 export default async function FotoPag() {
   const l = lingua();
-  const d = await dati();
-  const nome = new Map(d.eventi.map((e) => [e.slug, e.nome]));
-  const per = new Map<string, typeof d.foto>();
-  d.foto.forEach((f) => per.set(f.evento, [...(per.get(f.evento) ?? []), f]));
+  const album = await galleria();
   return (
     <>
       <h1>{tt(l, "Foto", "Photos")}</h1>
-      {!d.foto.length ? <p className="vuoto">{tt(l, "Le foto arrivano presto.", "Photos coming soon.")}</p> : null}
-      {[...per.entries()].map(([ev, ff]) => (
-        <div className="card" key={ev}>
-          <h2>{nome.get(ev) ?? ev}</h2>
-          <div className="foto">{ff.map((f) => <a key={f.id} href={f.url} target="_blank" rel="noopener"><img src={f.url} alt="" loading="lazy" /></a>)}</div>
-        </div>
+      {!album.length ? <p className="vuoto">{tt(l, "Le foto arrivano presto.", "Photos coming soon.")}</p> : null}
+      {album.map((a) => (
+        <section key={a.slug} id={a.slug} className="album">
+          <div className="sezione"><h2>{a.titolo}</h2><span className="sotto">{a.foto.length} {tt(l, "foto", "photos")}</span></div>
+          <Galleria foto={a.foto} max={12} />
+        </section>
       ))}
+      {album.length ? <p className="fonte"><a href={GALLERIA_URL} target="_blank" rel="noopener">{tt(l, "Galleria completa sul sito del team", "Full gallery on the team website")} ↗</a></p> : null}
     </>
   );
 }

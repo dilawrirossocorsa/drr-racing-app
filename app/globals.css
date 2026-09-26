@@ -130,3 +130,17 @@ a.hero { display: block; }
 .griglia.piloti { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px; }
 .griglia.piloti .board { margin: 0; }
 @media (max-width: 420px) { .griglia.piloti .board-nome { font-size: 18px; } .griglia.piloti .board-riga span { font-size: 20px; } .griglia.piloti .board-num { font-size: 26px; } }
+
+/* galleria foto del sito */
+.album { margin-bottom: 18px; }
+.foto-btn { padding: 0; border: 0; background: #e9ecef; border-radius: 10px; overflow: hidden; cursor: zoom-in; display: block; }
+.foto-btn img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform .2s; }
+.foto-btn:hover img { transform: scale(1.04); }
+.altre { margin-top: 8px; width: 100%; padding: 10px; border: 1px solid var(--bordo); background: #fff; border-radius: 10px; font-weight: 800; color: var(--rosso); cursor: pointer; font-size: 15px; }
+.visore { position: fixed; inset: 0; z-index: 50; background: rgba(10,12,15,.96); display: flex; align-items: center; justify-content: center; padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+.visore img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.visore button { position: absolute; background: rgba(255,255,255,.12); color: #fff; border: 0; border-radius: 999px; width: 44px; height: 44px; font-size: 26px; line-height: 1; cursor: pointer; }
+.v-chiudi { top: calc(12px + env(safe-area-inset-top)); right: 12px; font-size: 20px !important; }
+.v-prec { left: 10px; top: 50%; transform: translateY(-50%); }
+.v-succ { right: 10px; top: 50%; transform: translateY(-50%); }
+.v-conta { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; color: #cfd4da; font-size: 13px; }

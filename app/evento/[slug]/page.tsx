@@ -3,6 +3,8 @@ import { dati } from "@/lib/dati";
 import { lingua, tt } from "@/lib/lingua";
 import Countdown from "@/components/Countdown";
 import Risultati from "@/components/Risultati";
+import Galleria from "@/components/Galleria";
+import { galleria, albumDiEvento } from "@/lib/galleria";
 
 export const revalidate = 120;
 
@@ -16,7 +18,7 @@ export default async function Evento({ params }: { params: { slug: string } }) {
   const ora = (s: string) => new Date(s).toLocaleTimeString(l === "en" ? "en-US" : "it-IT", { hour: "2-digit", minute: "2-digit", timeZone: tz });
   const perGiorno = new Map<string, typeof ev.sessioni>();
   ev.sessioni.forEach((s) => perGiorno.set(giorno(s.start_at), [...(perGiorno.get(giorno(s.start_at)) ?? []), s]));
-  const foto = d.foto.filter((f) => f.evento === ev.slug);
+  const album = albumDiEvento(await galleria(), ev);
   const prossima = ev.sessioni.find((s) => new Date(s.end_at).getTime() > Date.now());
   return (
     <>
@@ -40,7 +42,7 @@ export default async function Evento({ params }: { params: { slug: string } }) {
           ))}
         </div>
       ) : null}
-      {foto.length ? <div className="card"><h2>{tt(l, "Foto", "Photos")}</h2><div className="foto">{foto.map((f) => <a key={f.id} href={f.url} target="_blank" rel="noopener"><img src={f.url} alt="" loading="lazy" /></a>)}</div></div> : null}
+      {album ? <div className="card"><h2>{tt(l, "Foto", "Photos")} <span className="sotto">· {album.titolo}</span></h2><Galleria foto={album.foto} max={12} /></div> : null}
     </>
   );
 }
