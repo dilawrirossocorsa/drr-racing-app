@@ -2,7 +2,7 @@
    team #db232a, titoli in Big Shoulders Display, testo Calibri/Arial,
    bordi grigi, striscia rossa e grigia del team (Billy, 26/09/2026). */
 :root {
-  --rosso: #db232a; --rosso-scuro: #a8161c; --grigio: #9aa1a9; --nero: #15181d;
+  --rosso: #db232a; --rosso-scuro: #a8161c; --grigio: #8a8b8a; --nero: #15181d;
   --fondo: #ffffff; --carta: #ffffff; --carta2: #f2f4f6; --testo: #1a1a1a; --tenue: #5b5f66; --bordo: #c2c9d1;
   --titoli: "Big Shoulders Display", "Arial Narrow", sans-serif;
   --blu: var(--nero); /* compatibilita' con le classi esistenti */
@@ -21,7 +21,9 @@ img { max-width: 100%; }
 /* testata */
 .testa { display: flex; align-items: center; justify-content: space-between; padding: calc(10px + env(safe-area-inset-top)) 16px 10px; background: var(--carta); }
 .logo img { height: 40px; display: block; }
-.striscia { height: 6px; background: linear-gradient(90deg, var(--rosso) 0 62%, #fff 62% 64%, var(--grigio) 64% 100%); }
+/* striscia del team con le proporzioni di brand/stripe.png: rosso, la fascia
+   grigia stretta dentro al rosso a circa 3/12 da sinistra, poi rosso (Billy, 26/09/2026) */
+.striscia { height: 6px; background: linear-gradient(90deg, var(--rosso) 0 18.4%, var(--grigio) 18.4% 27.6%, var(--rosso) 27.6% 100%); }
 .menu { display: flex; gap: 2px; overflow-x: auto; padding: 0 8px; background: var(--nero); position: sticky; top: 0; z-index: 5; scrollbar-width: none; }
 .menu::-webkit-scrollbar { display: none; }
 .menu { justify-content: safe center; }
@@ -51,7 +53,7 @@ a.card:hover { border-color: var(--rosso); }
 
 /* in evidenza (home) */
 .hero { background: var(--nero); color: #fff; border-radius: 14px; padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden; border-bottom: 5px solid var(--rosso); }
-.hero::after { content: ""; position: absolute; right: 22px; top: 0; bottom: 0; width: 26px; background: linear-gradient(90deg, var(--rosso) 0 62%, transparent 62% 70%, var(--grigio) 70%); opacity: .9; }
+.hero::after { content: ""; position: absolute; right: 22px; top: 0; bottom: 0; width: 26px; background: linear-gradient(90deg, var(--rosso) 0 18.4%, var(--grigio) 18.4% 27.6%, var(--rosso) 27.6% 100%); opacity: .9; }
 .hero .sotto { color: #aeb5bf; }
 .hero h2 { font-size: 30px; margin: 4px 0 6px; padding-right: 50px; }
 .hero .cd { color: #fff; }
