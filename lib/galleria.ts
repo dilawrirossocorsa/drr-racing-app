@@ -11,6 +11,10 @@ const BASE = "https://dilawrigroupofcompanies17.pixieset.com";
 const CUK = "dilawrirossocorsa";
 export const GALLERIA_URL = `${BASE}/${CUK}/`;
 const OGNI = 3600; // secondi
+// intestazioni da browser normale: senza, Pixieset puo' rispondere diversamente ai server
+const UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36";
+const H_PAGINA = { "User-Agent": UA, Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en-US,en;q=0.9" };
+const H_DATI = { "User-Agent": UA, "X-Requested-With": "XMLHttpRequest", Accept: "application/json, text/javascript, */*; q=0.01", "Accept-Language": "en-US,en;q=0.9", Referer: `${BASE}/${CUK}/` };
 
 export type Foto = { id: string; piccola: string; media: string; grande: string; w: number; h: number };
 export type Album = { slug: string; titolo: string; url: string; foto: Foto[] };
@@ -21,7 +25,7 @@ async function albumFoto(cid: string, slug: string): Promise<Foto[]> {
   const out: Foto[] = [];
   for (let p = 1; p <= 40; p++) {
     const r = await fetch(`${BASE}/client/loadphotos/?cuk=${CUK}&cid=${cid}&gs=${slug}&fk=&clientDownloads=false&page=${p}&size=100`, {
-      headers: { "X-Requested-With": "XMLHttpRequest", Accept: "application/json" },
+      headers: H_DATI,
       next: { revalidate: OGNI },
     });
     if (!r.ok) break;
@@ -39,7 +43,7 @@ async function albumFoto(cid: string, slug: string): Promise<Foto[]> {
 
 export async function galleria(): Promise<Album[]> {
   try {
-    const r = await fetch(GALLERIA_URL, { next: { revalidate: OGNI }, headers: { "User-Agent": "Mozilla/5.0 (DRR Racing)" } });
+    const r = await fetch(GALLERIA_URL, { next: { revalidate: OGNI }, headers: H_PAGINA });
     if (!r.ok) return [];
     const html = await r.text();
     const cid = (html.match(/cid=(\d+)/) || [])[1];
@@ -70,4 +74,25 @@ export function albumDiEvento(album: Album[], ev: { nome: string; circuito: stri
   if (!k) return null;
   const a = anno(ev.inizio);
   return album.find((x) => chiave(x.titolo) === k && (!a || !anno(x.titolo) || anno(x.titolo) === a)) ?? null;
+}
+
+// Controllo per capire cosa risponde Pixieset al server (api/foto-controllo)
+export async function controllo() {
+  const out: Record<string, unknown> = {};
+  try {
+    const r = await fetch(GALLERIA_URL, { cache: "no-store", headers: H_PAGINA });
+    const html = await r.text();
+    const cid = (html.match(/cid=(\d+)/) || [])[1] || null;
+    const cartelle = [...html.matchAll(new RegExp(`/${CUK}/([a-z0-9-]+)/"[^>]*>\\s*([^<]{2,80})<`, "g"))].map((m) => m[1]);
+    out.pagina = { stato: r.status, lunghezza: html.length, cid, cartelle: [...new Set(cartelle)], inizio: html.slice(0, 300) };
+    if (cid && cartelle.length) {
+      const g = cartelle.find((c) => c !== "store")!;
+      const d = await fetch(`${BASE}/client/loadphotos/?cuk=${CUK}&cid=${cid}&gs=${g}&fk=&clientDownloads=false&page=1&size=100`, { cache: "no-store", headers: H_DATI });
+      const t = await d.text();
+      out.dati = { cartella: g, stato: d.status, lunghezza: t.length, inizio: t.slice(0, 200) };
+    }
+  } catch (e) {
+    out.errore = String(e);
+  }
+  return out;
 }
