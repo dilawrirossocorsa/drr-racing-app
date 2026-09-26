@@ -15,3 +15,11 @@ Classifica, Foto. Italiano e inglese (tasto in alto).
 2. Progetto Vercel nuovo collegato al repo (nessuna variabile obbligatoria).
 3. Dominio, per esempio `racing.dilawrirossocorsa.com`.
 4. Store: guscio Capacitor come Paddock, che punta al dominio (da fare).
+
+## Accesso (dal 26 settembre 2026)
+Per entrare serve un account. Il team usa email e password di DRR Paddock;
+i fan si iscrivono da "Chiedi di entrare" e aspettano l'ok dell'admin in
+Paddock > Admin > DRR Racing (lista a parte, `sql/racing_fan.sql` nel
+progetto Paddock). Variabili su Vercel (progetto Racing):
+`NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` (le stesse di
+Paddock). Senza, l'app resta aperta a tutti come prima.

@@ -4,6 +4,7 @@ import "./globals.css";
 import { lingua, tt } from "@/lib/lingua";
 import Lingua from "@/components/Lingua";
 import Menu from "@/components/Menu";
+import { accessoAttivo } from "@/lib/supabase";
 
 export const metadata: Metadata = {
   title: "DRR Racing",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <header className="testa">
           <Link href="/" className="logo"><img src="/brand/logo.png" alt="Dilawri Rossocorsa Racing" /></Link>
+          {accessoAttivo() ? <Link href="/account" className="account">{tt(l, "Account", "Account")}</Link> : null}
           <Lingua attuale={l} />
         </header>
         <div className="striscia" />

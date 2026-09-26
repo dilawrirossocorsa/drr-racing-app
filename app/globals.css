@@ -144,3 +144,18 @@ a.hero { display: block; }
 .v-prec { left: 10px; top: 50%; transform: translateY(-50%); }
 .v-succ { right: 10px; top: 50%; transform: translateY(-50%); }
 .v-conta { position: absolute; bottom: calc(14px + env(safe-area-inset-bottom)); left: 0; right: 0; text-align: center; color: #cfd4da; font-size: 13px; }
+
+/* accesso a DRR Racing (Billy, 26 settembre 2026) */
+.stretta { max-width: 460px; margin: 0 auto; }
+.accesso-schede { display: flex; gap: 6px; margin-bottom: 14px; }
+.accesso-schede button { flex: 1; padding: 9px 10px; border-radius: 999px; border: 1px solid var(--bordo); background: transparent; font-weight: 700; font-size: 14px; cursor: pointer; }
+.accesso-schede button.on { background: var(--nero); color: #fff; border-color: var(--nero); }
+.accesso-form { display: flex; flex-direction: column; gap: 12px; }
+.accesso-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 700; }
+.accesso-form input { font-size: 16px; padding: 10px 12px; border: 1px solid var(--bordo); border-radius: 10px; }
+.accesso-form .btn { justify-content: center; border: 0; cursor: pointer; }
+.nota { font-size: 13px; opacity: .75; margin: 0; }
+.errore { color: var(--rosso); font-size: 13px; }
+.ok { color: #1a7f37; font-size: 13px; }
+button.link { background: none; border: 0; padding: 0; color: var(--rosso); font-size: 13px; cursor: pointer; text-decoration: underline; align-self: flex-start; }
+.testa .account { font-size: 13px; font-weight: 700; margin-left: auto; margin-right: 10px; }
