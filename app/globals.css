@@ -53,7 +53,7 @@ a.card:hover { border-color: var(--rosso); }
 
 /* in evidenza (home) */
 .hero { background: var(--nero); color: #fff; border-radius: 14px; padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden; border-bottom: 5px solid var(--rosso); }
-.hero::after { content: ""; position: absolute; right: 22px; top: 0; bottom: 0; width: 26px; background: url("/brand/stripe.png") 0 0 / 100% 100% no-repeat; opacity: .9; }
+.hero::after { content: ""; position: absolute; right: 22px; bottom: 0; height: 33.33%; width: 26px; background: url("/brand/stripe.png") 0 0 / 100% 100% no-repeat; opacity: .9; }
 .hero .sotto { color: #aeb5bf; }
 .hero h2 { font-size: 30px; margin: 4px 0 6px; padding-right: 50px; }
 .hero .cd { color: #fff; }
