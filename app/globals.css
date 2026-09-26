@@ -1,6 +1,11 @@
 :root { --blu: #0b2a55; --rosso: #d2001f; --grigio: #8a8f98; --fondo: #f4f5f7; --carta: #fff; --testo: #15181d; --tenue: #5d6470; --bordo: #e2e5ea; }
 * { box-sizing: border-box; }
-html, body { margin: 0; background: var(--fondo); color: var(--testo); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+/* il fondo sta solo su html: se l'avesse anche body coprirebbe la striscia del team */
+html { background: var(--fondo); }
+html, body { margin: 0; color: var(--testo); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+/* Striscia di sfondo del team, identica a Paddock: fissa rispetto alla finestra, sotto a tutto il contenuto */
+.app-bg-stripe { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.app-bg-stripe img { position: absolute; left: 60%; bottom: 0; transform: translateX(-50%); height: 50vh; width: 27vh; opacity: 0.18; }
 a { color: var(--blu); text-decoration: none; }
 .testa { display: flex; align-items: center; justify-content: space-between; padding: calc(10px + env(safe-area-inset-top)) 16px 10px; background: var(--carta); }
 .logo img { height: 38px; display: block; }

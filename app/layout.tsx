@@ -17,6 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={l}>
       <body>
+        {/* Striscia di sfondo del team, come in Paddock (.app-bg-stripe in globals.css) */}
+        <div className="app-bg-stripe" aria-hidden="true">
+          <img src="/brand/stripe.png" alt="" />
+        </div>
         <header className="testa">
           <Link href="/" className="logo"><img src="/brand/logo.png" alt="Dilawri Rossocorsa Racing" /></Link>
           <Lingua attuale={l} />
