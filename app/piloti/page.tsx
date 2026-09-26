@@ -12,7 +12,7 @@ export default async function Piloti() {
     <>
       <h1>{tt(l, "Piloti", "Drivers")}</h1>
       {!d.piloti.length ? <p className="vuoto">{tt(l, "Le schede dei piloti arrivano presto.", "Driver profiles coming soon.")}</p> : null}
-      <div className="griglia">
+      <div className="griglia piloti">
         {d.piloti.map((p) => {
           const [nome, cognome] = nomeCognome(p.nome);
           const c = p.classifica[0] ?? (p.ferrari?.posizione ? { posizione: p.ferrari.posizione, punti: p.ferrari.punti } : undefined);
