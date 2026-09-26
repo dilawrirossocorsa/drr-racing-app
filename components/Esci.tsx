@@ -4,7 +4,7 @@ import { useState } from "react";
 import { clientBrowser } from "@/lib/supabase";
 
 export function Esci({ testo }: { testo: string }) {
-  return <button type="button" className="btn" onClick={async () => { await clientBrowser().auth.signOut(); location.href = "/accedi"; }}>{testo}</button>;
+  return <button type="button" className="btn" onClick={async () => { await clientBrowser().auth.signOut(); location.href = "/accedi?ponte=0"; }}>{testo}</button>;
 }
 
 // Solo per i fan: cancella l'account (gli store lo chiedono)

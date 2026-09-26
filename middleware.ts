@@ -4,7 +4,7 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 // Chi entra in DRR Racing (Billy, 26 settembre 2026): il team (account di
 // Paddock) e i fan approvati dall'admin in Paddock > Admin > DRR Racing.
 // Gli altri vanno alla pagina di accesso o a quella di attesa.
-const LIBERE = ["/accedi", "/attesa", "/nuova-password", "/api/", "/brand/", "/icon.png", "/favicon.ico", "/manifest"];
+const LIBERE = ["/accedi", "/auth/", "/attesa", "/nuova-password", "/api/", "/brand/", "/icon.png", "/favicon.ico", "/manifest"];
 
 export async function middleware(req: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL, anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
