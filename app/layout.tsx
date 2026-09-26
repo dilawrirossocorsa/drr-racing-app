@@ -5,6 +5,7 @@ import { lingua, tt } from "@/lib/lingua";
 import Lingua from "@/components/Lingua";
 import Menu from "@/components/Menu";
 import { accessoAttivo } from "@/lib/supabase";
+import { appTeam } from "@/lib/app-team";
 
 export const metadata: Metadata = {
   title: "DRR Racing",
@@ -13,8 +14,9 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#14294a" }, { color: "#ffffff" }], width: "device-width", initialScale: 1, viewportFit: "cover" };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const l = lingua();
+  const app = await appTeam();
   const voci: [string, string, string][] = [["/", "Home", "Home"], ["/calendario", "Calendario", "Calendar"], ["/piloti", "Piloti", "Drivers"], ["/classifica", "Classifica", "Standings"], ["/foto", "Foto", "Photos"]];
   return (
     <html lang={l}>
@@ -31,6 +33,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         <header className="testa">
           <Link href="/" className="logo"><img src="/brand/logo.png" alt="Dilawri Rossocorsa Racing" /></Link>
+          {app.length > 0 && (
+            <nav className="app-team" aria-label={tt(l, "App del team", "Team apps")}>
+              {app.map((a) => (
+                <a key={a.key} href={a.href} title={`DRR ${a.label}`}>
+                  <img src={a.icon} alt="" />
+                  <span>{a.label}</span>
+                </a>
+              ))}
+            </nav>
+          )}
           {accessoAttivo() ? <Link href="/account" className="account">{tt(l, "Account", "Account")}</Link> : null}
           <Lingua attuale={l} />
         </header>

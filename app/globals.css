@@ -52,10 +52,10 @@ a.card:hover { border-color: var(--rosso); }
 .nome-gara { color: var(--rosso); text-transform: uppercase; }
 
 /* in evidenza (home) */
-.hero { background: var(--nero); color: #fff; border-radius: 14px; padding: 20px; margin-bottom: 14px; position: relative; overflow: hidden; border-bottom: 5px solid var(--rosso); }
-.hero::after { content: ""; position: absolute; right: 22px; bottom: 0; height: 33.33%; width: 26px; background: url("/brand/stripe.png") 0 0 / 100% 100% no-repeat; opacity: .9; }
+.hero { background: var(--nero); color: #fff; border-radius: 14px; padding: 20px 76px 20px 20px; margin-bottom: 14px; position: relative; overflow: hidden; border-bottom: 5px solid var(--rosso); }
+.hero::after { content: ""; position: absolute; right: 22px; bottom: 0; height: 66.67%; width: 39px; background: url("/brand/stripe.png") 0 0 / 100% 100% no-repeat; opacity: .9; }
 .hero .sotto { color: #aeb5bf; }
-.hero h2 { font-size: 30px; margin: 4px 0 6px; padding-right: 50px; }
+.hero h2 { font-size: 30px; margin: 4px 0 6px; }
 .hero .cd { color: #fff; }
 .etichetta { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #fff; background: var(--rosso); padding: 3px 8px; border-radius: 4px; }
 .intro p { margin: 0 0 10px; line-height: 1.55; } .intro p:last-child { margin-bottom: 0; }
@@ -160,6 +160,13 @@ a.hero { display: block; }
 .errore { color: var(--rosso); font-size: 13px; }
 .ok { color: #1a7f37; font-size: 13px; }
 button.link { background: none; border: 0; padding: 0; color: var(--rosso); font-size: 13px; cursor: pointer; text-decoration: underline; align-self: flex-start; }
+/* icone delle app del team, staccate dal logo (solo per chi e' del team) */
+.app-team { display: flex; gap: 6px; align-items: flex-end; margin-left: 18px; padding-left: 14px; border-left: 1px solid var(--bordo); }
+.app-team a { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.app-team img { width: 34px; height: 34px; border-radius: 9px; border: 1px solid rgba(0,0,0,.18); display: block; opacity: .8; }
+.app-team a:hover img { opacity: 1; }
+.app-team span { font-size: 9px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--tenue); }
+@media (max-width: 520px) { .app-team { margin-left: 10px; padding-left: 8px; gap: 4px; } .app-team img { width: 28px; height: 28px; border-radius: 7px; } .app-team span { display: none; } }
 .testa .account { font-size: 13px; font-weight: 700; margin-left: auto; margin-right: 10px; }
 
 /* Tema serale blu (Billy, 26 settembre 2026): come DRR Paddock, di giorno
